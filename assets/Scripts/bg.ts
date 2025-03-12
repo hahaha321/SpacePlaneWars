@@ -1,8 +1,8 @@
 import { _decorator, Component, Node, Vec3 } from 'cc';
 const { ccclass, property } = _decorator;
 
-@ccclass('bg')
-export class bg extends Component {
+@ccclass('Bg')
+export class Bg extends Component {
     @property(Node)
     bg01: Node = null;
     @property(Node)
