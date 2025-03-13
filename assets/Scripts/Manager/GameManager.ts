@@ -1,4 +1,4 @@
-import { _decorator, AudioClip, Component, Node } from 'cc';
+import { _decorator, AudioClip, Component, director, Node } from 'cc';
 import { AudioMgr } from './AudioMgr';
 const { ccclass, property } = _decorator;
 
@@ -14,13 +14,16 @@ export class GameManager extends Component {
 
     @property(AudioClip)
     bgm: AudioClip;
+    @property(Node)
+    bulletParentNode: Node;
 
     private _score: number = 0;
 
     public get score(): number { return this._score; }
 
     start() {
-        AudioMgr.inst.play(this.bgm, 1.0);
+        GameManager._inst = this;
+        AudioMgr.inst.play(this.bgm, 0.5);
         console.log("播放背景音乐成功。");
     }
 
@@ -32,6 +35,11 @@ export class GameManager extends Component {
     gameOver() {
         AudioMgr.inst.stop();
         console.log("游戏结束。");
+    }
+
+    gamePass() {
+        console.log("游戏通关。");
+        director.loadScene("03-Game-Level2");
     }
 }
 

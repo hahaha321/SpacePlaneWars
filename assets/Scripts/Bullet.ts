@@ -1,5 +1,6 @@
 import { _decorator, Collider2D, Component, Contact2DType, IPhysics2DContact, Node } from 'cc';
 import { Enemy } from './Enemy';
+import { Enemy1 } from './Enemy1';
 const { ccclass, property } = _decorator;
 
 @ccclass('Bullet')
@@ -39,6 +40,13 @@ export class Bullet extends Component {
         let enemy0 = otherCollider.node.getComponent(Enemy);
         if (enemy0) {
             enemy0.underAttack();
+            this.collider.enabled = false;
+            this.scheduleOnce(()=>this.node.destroy());
+        }
+
+        let enemy1 = otherCollider.node.getComponent(Enemy1);
+        if (enemy1) {
+            enemy1.underAttack();
             this.collider.enabled = false;
             this.scheduleOnce(()=>this.node.destroy());
         }

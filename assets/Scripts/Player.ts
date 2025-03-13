@@ -1,6 +1,7 @@
-import { _decorator, Animation, Collider2D, Color, color, Component, Contact2DType, EventTouch, input, Input, instantiate, IPhysics2DContact, Node, Prefab, Sprite, tween, UITransform } from 'cc';
+import { _decorator, Animation, Collider2D, Color, color, Component, Contact2DType, EventTouch, find, input, Input, instantiate, IPhysics2DContact, Node, Prefab, Sprite, tween, UITransform } from 'cc';
 import { Enemy } from './Enemy';
 import { AudioMgr } from './Manager/AudioMgr';
+import { Enemy1 } from './Enemy1';
 const { ccclass, property } = _decorator;
 
 @ccclass('Player')
@@ -23,8 +24,10 @@ export class Player extends Component {
 
         this.collider = this.node.getComponent(Collider2D);
         this.collider.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
+    }
 
-
+    protected update(dt: number): void {
+        this.schedule(this.shoot, this.ShootRate);
     }
 
     protected onDestroy(): void {
@@ -74,6 +77,12 @@ export class Player extends Component {
             otherCollider.getComponent(Enemy).underAttack();
         }
 
+        // 当碰撞到的是enemy1时，自己受伤，并让敌人受伤
+
+        if (otherCollider.tag == 30) {
+            this.underAttack();
+            otherCollider.getComponent(Enemy1).underAttack();
+        }
     }
 
     /**
@@ -87,7 +96,7 @@ export class Player extends Component {
             // 设置子弹位置为当前节点位置
             bullet.setPosition(this.node.position);
             // 将子弹节点添加到当前节点的子节点中
-            this.node.parent?.addChild(bullet);
+            bullet.setParent(find('Canvas/Game/BulletParent'));
             // 播放射击音乐
             AudioMgr.inst.playOneShot('Audio/Sound/shoot');
 
@@ -109,7 +118,7 @@ export class Player extends Component {
 
         // 减少生命值
         this.HP -= 1;
-        console.log(this.HP);
+        console.log('当前生命值：' + this.HP);
         if (this.HP <= 0) {
             console.log("玩家挂了");
             this.unschedule(this.shoot);
