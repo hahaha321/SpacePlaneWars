@@ -1,14 +1,17 @@
 import { _decorator, Component, Node, Vec3 } from 'cc';
-import { GameManager } from './Manager/GameManager';
-import { PlayerLevelManager } from './Manager/PlayerLevelManager';
+import { PlayerLevelManager } from '../Manager/PlayerLevelManager';
+import { GameManager } from '../Manager/GameManager';
+import { EnemyBase } from './EnemyBase';
 const { ccclass, property } = _decorator;
 
 @ccclass('Enemy1')
-export class Enemy1 extends Component {
+export class Enemy1 extends EnemyBase {
     @property
     enemy1MoveSpeed: number = 300;
     @property
     expReward: number = 10; // 怪物被击败后给予的经验值
+    @property
+    private playerLevelToEnableDodge: number = 5; // 玩家需要达到的等级以启用躲避功能
     // 检测子弹的范围
     @property
     private detectionRange: number = 100;
@@ -21,21 +24,28 @@ export class Enemy1 extends Component {
             this.node.destroy();
         }
 
-        // 敌机自动躲避子弹
+        // 检查玩家等级，如果达到指定等级，则启用躲避功能
+        if (PlayerLevelManager.inst.getLevel() >= this.playerLevelToEnableDodge) {
+            this.dodgeBullets(dt);
+        }
+    }
+
+    // 封装躲避逻辑
+    private dodgeBullets(deltaTime: number) {
         // 检测附近的子弹
         const bullets = this.detectNearbyBullets();
         if (bullets.length > 0) {
             // 计算躲避方向
             const dodgeDirection = this.calculateDodgeDirection(bullets);
             // 移动敌人
-            this.moveEnemy(dodgeDirection, dt);
+            this.moveEnemy(dodgeDirection, deltaTime);
         }
     }
 
     underAttack() {
+        super.underAttack();
         GameManager.inst.addScore(1);
         PlayerLevelManager.inst.addExp(this.expReward);
-        this.scheduleOnce(() => { this.node.destroy() });
     }
 
      // 检测敌机附近的子弹，并返回一个节点类型的数组
@@ -71,6 +81,10 @@ export class Enemy1 extends Component {
             const p = this.node.position;
             this.node.setPosition(p.x + moveVector.x, p.y + moveVector.y, p.z);
         }
+    }
+
+    stopMove() {
+        this.enemy1MoveSpeed = 0;
     }
 }
 

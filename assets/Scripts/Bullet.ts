@@ -1,6 +1,6 @@
 import { _decorator, Collider2D, Component, Contact2DType, IPhysics2DContact, Node } from 'cc';
-import { Enemy } from './Enemy';
-import { Enemy1 } from './Enemy1';
+import { Enemy1 } from './Enemy/Enemy1';
+import { Enemy0 } from './Enemy/Enemy0';
 const { ccclass, property } = _decorator;
 
 @ccclass('Bullet')
@@ -37,7 +37,7 @@ export class Bullet extends Component {
 
     onBeginContact (selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
         // 只在两个碰撞体开始接触时被调用一次
-        let enemy0 = otherCollider.node.getComponent(Enemy);
+        let enemy0 = otherCollider.node.getComponent(Enemy0);
         if (enemy0) {
             enemy0.underAttack();
             this.collider.enabled = false;

@@ -1,5 +1,6 @@
 import { _decorator, AudioClip, Component, director, Node } from 'cc';
 import { AudioMgr } from './AudioMgr';
+import { EnemyManager } from './EnemyManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('GameManager')
@@ -16,6 +17,8 @@ export class GameManager extends Component {
     bgm: AudioClip;
     @property(Node)
     bulletParentNode: Node;
+    @property(Node)
+    gameOverUI: Node;
 
     private _score: number = 0;
 
@@ -34,7 +37,10 @@ export class GameManager extends Component {
 
     gameOver() {
         AudioMgr.inst.stop();
+        EnemyManager.inst.stopSpawn();
         console.log("游戏结束。");
+        this.gameOverUI.active = true;
+
     }
 
     gamePass() {

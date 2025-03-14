@@ -1,5 +1,6 @@
 import { _decorator, Component, find, instantiate, Node, Prefab, randomRange } from 'cc';
 import { GameManager } from './GameManager';
+import { Enemy1 } from '../Enemy/Enemy1';
 const { ccclass, property } = _decorator;
 
 @ccclass('EnemyManager')
@@ -22,9 +23,21 @@ export class EnemyManager extends Component {
     enemy1Prefab: Prefab = null;
     @property
     enemy1SpawnRate: number = 1;
+    @property(Prefab)
+    enemy2Prefab: Prefab = null;
+    @property
+    enemy2SpawnRate: number = 1;
 
+    protected onLoad(): void {
+        EnemyManager._inst = this;
+    }
     start() {
         this.schedule(this.spawnEnemy1, this.enemy1SpawnRate);
+        this.schedule(this.spawnEnemy2, this.enemy2SpawnRate);
+    }
+
+    protected onDestroy(): void {
+        this.unscheduleAllCallbacks();
     }
 
     spawnEnemy1() {
@@ -32,6 +45,15 @@ export class EnemyManager extends Component {
         const parent = find('Canvas/Game/Enemies');
         parent.addChild(enemy1);
         enemy1.setPosition(randomRange(-337,338), 660);
+        this.addEnemy(enemy1);
+    }
+
+    spawnEnemy2() {
+        const enemy2 = instantiate(this.enemy2Prefab);
+        const parent = find('Canvas/Game/Enemies');
+        parent.addChild(enemy2);
+        enemy2.setPosition(randomRange(-337,338), 660);
+        this.addEnemy(enemy2);
     }
 
     addEnemy(enemy: Node) {
@@ -53,6 +75,19 @@ export class EnemyManager extends Component {
     private onAllEnemiesDead() {
         // 游戏通关的逻辑
         GameManager.inst.gamePass();
+    }
+
+    stopSpawn() {
+        this.unschedule(this.spawnEnemy1);
+        this.unschedule(this.spawnEnemy2);
+        this.enemiesStopMove();
+    }
+
+    enemiesStopMove() {
+        console.log(EnemyManager.inst.enemies);
+        for (let enemy of this.enemies) {
+            enemy.getComponent(Enemy1).stopMove();
+        }
     }
 
 }
