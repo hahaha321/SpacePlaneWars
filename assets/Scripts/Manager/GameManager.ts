@@ -29,8 +29,8 @@ export class GameManager extends Component {
 
     start() {
         GameManager._inst = this;
-        AudioMgr.inst.play(this.bgm, 0.5);
-        console.log("播放背景音乐成功。");
+        // AudioMgr.inst.play(this.bgm, 0.5);
+        // console.log("播放背景音乐成功。");
     }
 
     addScore(value: number = 1) { 
@@ -41,7 +41,7 @@ export class GameManager extends Component {
     gameOver() {
         this.gameUI.updateDisplay();
         director.pause();
-        AudioMgr.inst.stop();
+        // AudioMgr.inst.stop();
         EnemyManager.inst.stopSpawn();
         console.log("游戏结束。");
         this.gameOverUI.active = true;
@@ -56,7 +56,7 @@ export class GameManager extends Component {
     restart() {
         director.loadScene('03-Game-Level2');
         director.resume();
-        AudioMgr.inst.play(this.bgm, 0.5);
+        // AudioMgr.inst.play(this.bgm, 0.5);
         EnemyManager.inst.startSpawn();
         this.gameOverUI.active = false;
         console.log("重置游戏。");

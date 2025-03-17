@@ -36,7 +36,7 @@ export class GameUI extends Component {
             this.ExpLabel.string = `经验值: ${currentExp}`;
         }
         if (this.HPLabel) {
-            this.HPLabel.string = `生命值: ${this.player.HP}`;
+            this.HPLabel.string = `HP: ${this.player.HP}`;
         }
     }
 }

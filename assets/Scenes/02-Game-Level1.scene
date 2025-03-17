@@ -26,7 +26,7 @@
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 646
+      "__id__": 647
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -57,7 +57,7 @@
     },
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 647
+      "__id__": 648
     },
     "_id": "f17d86c4-8e69-4d37-b4af-29ccfc9671c0"
   },
@@ -165,10 +165,8 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "bgm": {
-      "__uuid__": "571476b0-56a6-4f84-9738-8f191f7cd616",
-      "__expectedType__": "cc.AudioClip"
-    },
+    "bgm": null,
+    "gameUI": null,
     "_id": "db0Msh/ZxPuYpcCvyDgliM"
   },
   {
@@ -202,13 +200,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 643
-      },
-      {
         "__id__": 644
       },
       {
         "__id__": 645
+      },
+      {
+        "__id__": 646
       }
     ],
     "_prefab": null,
@@ -9355,10 +9353,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 641
+        "__id__": 642
       },
       {
-        "__id__": 642
+        "__id__": 643
       }
     ],
     "_prefab": null,
@@ -9407,6 +9405,9 @@
       },
       {
         "__id__": 640
+      },
+      {
+        "__id__": 641
       }
     ],
     "_prefab": null,
@@ -9522,6 +9523,36 @@
     },
     "_shadowBlur": 2,
     "_id": "ac4uwPBptKyaEG0VY3Mpwy"
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 638
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_alignFlags": 9,
+    "_target": null,
+    "_left": -2.77123046875,
+    "_right": 0,
+    "_top": -5.6412,
+    "_bottom": 0,
+    "_horizontalCenter": 0,
+    "_verticalCenter": 0,
+    "_isAbsLeft": false,
+    "_isAbsRight": true,
+    "_isAbsTop": false,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 0,
+    "_originalHeight": 0,
+    "_alignMode": 2,
+    "_lockFlags": 0,
+    "_id": "fcnQSD02NGVam4DdrJIGof"
   },
   {
     "__type__": "cc.UITransform",
@@ -9783,28 +9814,28 @@
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 648
-    },
-    "shadows": {
       "__id__": 649
     },
-    "_skybox": {
+    "shadows": {
       "__id__": 650
     },
-    "fog": {
+    "_skybox": {
       "__id__": 651
     },
-    "octree": {
+    "fog": {
       "__id__": 652
     },
-    "skin": {
+    "octree": {
       "__id__": 653
     },
-    "lightProbeInfo": {
+    "skin": {
       "__id__": 654
     },
-    "postSettings": {
+    "lightProbeInfo": {
       "__id__": 655
+    },
+    "postSettings": {
+      "__id__": 656
     },
     "bakedWithStationaryMainLight": false,
     "bakedWithHighpLightmap": false

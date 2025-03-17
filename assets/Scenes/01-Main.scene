@@ -712,7 +712,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 480,
+      "width": 320,
       "height": 100.8
     },
     "_anchorPoint": {
@@ -742,7 +742,7 @@
       "b": 0,
       "a": 255
     },
-    "_string": "太空飞机大战",
+    "_string": "雷霆空战",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 80,
