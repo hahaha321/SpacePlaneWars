@@ -22,11 +22,13 @@ export class GameUI extends Component {
     }
 
     update(deltaTime: number) {
-        this.scoreLabel.string = '得分' + GameManager.inst.score.toString();
+        
         this.updateDisplay();
     }
 
-    private updateDisplay() {
+    public updateDisplay() {
+        this.scoreLabel.string = '得分' + GameManager.inst.score.toString();
+        
         if (this.LevelLabel && this.ExpLabel) {
             const level = PlayerLevelManager.inst.getLevel();
             const currentExp = PlayerLevelManager.inst.getCurrentExp();

@@ -9,6 +9,7 @@ export enum CollisionTAG {
     Bullet = 10,
     Enemy0 = 20,
     Enemy1 = 30,
+    Enemy2 = 40
 }
 
 

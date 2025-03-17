@@ -4,6 +4,7 @@ import { BOUNDARY_X, BOUNDARY_Y, CollisionTAG } from './Global';
 import { Enemy1 } from './Enemy/Enemy1';
 import { GameManager } from './Manager/GameManager';
 import { Enemy0 } from './Enemy/Enemy0';
+import { Enemy2 } from './Enemy/Enemy2';
 const { ccclass, property } = _decorator;
 
 @ccclass('Player')
@@ -139,6 +140,10 @@ export class Player extends Component {
         if (otherCollider.tag == CollisionTAG.Enemy1) {
             this.underAttack();
             otherCollider.getComponent(Enemy1).underAttack();
+        }
+        if (otherCollider.tag == CollisionTAG.Enemy2) {
+            this.underAttack();
+            otherCollider.getComponent(Enemy2).underAttack();
         }
     }
 

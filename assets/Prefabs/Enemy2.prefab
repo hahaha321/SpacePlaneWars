@@ -153,10 +153,9 @@
     "__prefab": {
       "__id__": 7
     },
-    "enemy1MoveSpeed": 300,
+    "enemyMoveSpeed": 300,
     "expReward": 10,
-    "playerLevelToEnableDodge": 5,
-    "detectionRange": 100,
+    "scoreReward": 10,
     "hp": 2,
     "_id": ""
   },
@@ -176,7 +175,7 @@
     "__prefab": {
       "__id__": 9
     },
-    "tag": 30,
+    "tag": 40,
     "_group": 1,
     "_density": 1,
     "_sensor": true,

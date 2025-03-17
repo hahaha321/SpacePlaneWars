@@ -1,15 +1,14 @@
 import { _decorator, Component, find, instantiate, Node, Prefab, randomRange } from 'cc';
 import { GameManager } from './GameManager';
 import { Enemy1 } from '../Enemy/Enemy1';
+import { Enemy2 } from '../Enemy/Enemy2';
+import { EnemyBase } from '../Enemy/EnemyBase';
 const { ccclass, property } = _decorator;
 
 @ccclass('EnemyManager')
 export class EnemyManager extends Component {
     private static _inst: EnemyManager;
     public static get inst(): EnemyManager {
-        if (this._inst == null) {
-            this._inst = new EnemyManager();
-        }
         return this._inst;
     }
 
@@ -29,7 +28,13 @@ export class EnemyManager extends Component {
     enemy2SpawnRate: number = 1;
 
     protected onLoad(): void {
-        EnemyManager._inst = this;
+        if (EnemyManager._inst == null) {
+            EnemyManager._inst = this;
+        } else {
+            console.error("EnemyManager 实例已存在！")
+            this.node.destroy();
+            return;
+        }
     }
     start() {
         this.schedule(this.spawnEnemy1, this.enemy1SpawnRate);
@@ -38,6 +43,10 @@ export class EnemyManager extends Component {
 
     protected onDestroy(): void {
         this.unscheduleAllCallbacks();
+        if (EnemyManager._inst == this) {
+            EnemyManager._inst = null;
+            this.node.destroy();
+        }
     }
 
     spawnEnemy1() {
@@ -77,6 +86,11 @@ export class EnemyManager extends Component {
         GameManager.inst.gamePass();
     }
 
+    startSpawn() {
+        this.schedule(this.spawnEnemy1, this.enemy1SpawnRate);
+        this.schedule(this.spawnEnemy2, this.enemy2SpawnRate);
+    }
+
     stopSpawn() {
         this.unschedule(this.spawnEnemy1);
         this.unschedule(this.spawnEnemy2);
@@ -84,9 +98,10 @@ export class EnemyManager extends Component {
     }
 
     enemiesStopMove() {
-        console.log(EnemyManager.inst.enemies);
+        console.log(this.enemies);
         for (let enemy of this.enemies) {
-            enemy.getComponent(Enemy1).stopMove();
+            if(enemy.getComponent(EnemyBase)) enemy.getComponent(EnemyBase).stopMove();
+            // if(enemy.getComponent(Enemy2)) enemy.getComponent(Enemy2).stopMove();
         }
     }
 

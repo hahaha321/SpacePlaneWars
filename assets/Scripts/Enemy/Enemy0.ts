@@ -6,15 +6,17 @@ const { ccclass, property } = _decorator;
 
 @ccclass('Enemy0')
 export class Enemy0 extends EnemyBase {
+    onLoad() {
+        this.expReward = 0;
+        this.enemyMoveSpeed = 0;
 
-    protected start(): void {
         EnemyManager.inst.addEnemy(this.node);
     }
 
-    underAttack() {
-        super.underAttack();
-        GameManager.inst.addScore(1);
+    onDestroy() {
+        EnemyManager.inst.removeEnemy(this.node);
     }
+
 }
 
 

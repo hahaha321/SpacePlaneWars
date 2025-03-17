@@ -1,6 +1,7 @@
 import { _decorator, AudioClip, Component, director, Node } from 'cc';
 import { AudioMgr } from './AudioMgr';
 import { EnemyManager } from './EnemyManager';
+import { GameUI } from '../UI/GameUI';
 const { ccclass, property } = _decorator;
 
 @ccclass('GameManager')
@@ -17,6 +18,8 @@ export class GameManager extends Component {
     bgm: AudioClip;
     @property(Node)
     bulletParentNode: Node;
+    @property(GameUI)
+    gameUI:GameUI = null;
     @property(Node)
     gameOverUI: Node;
 
@@ -36,6 +39,8 @@ export class GameManager extends Component {
     }
 
     gameOver() {
+        this.gameUI.updateDisplay();
+        director.pause();
         AudioMgr.inst.stop();
         EnemyManager.inst.stopSpawn();
         console.log("游戏结束。");
@@ -46,6 +51,15 @@ export class GameManager extends Component {
     gamePass() {
         console.log("游戏通关。");
         director.loadScene("03-Game-Level2");
+    }
+
+    restart() {
+        director.loadScene('03-Game-Level2');
+        director.resume();
+        AudioMgr.inst.play(this.bgm, 0.5);
+        EnemyManager.inst.startSpawn();
+        this.gameOverUI.active = false;
+        console.log("重置游戏。");
     }
 }
 
