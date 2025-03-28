@@ -12,4 +12,9 @@ export enum CollisionTAG {
     Enemy2 = 40
 }
 
+export const playerConfig = {
+    SHOOT_RATE: 2, // 射击频率
+    HP: 3, // 生命值
+}
+
 
